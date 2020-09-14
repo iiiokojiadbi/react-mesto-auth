@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
-import ButtonSubmitForm from './ui/ButtonSubmitForm';
-import InputForm from './ui/InputForm';
-import ErrorSpan from './ui/ErrorSpan';
+import { InputForm, ErrorSpan, ButtonSubmitForm } from './ui';
 
 function AddPlacePopup({ isOpen, onClose, onPost }) {
   const [name, setName] = useState();
@@ -54,16 +52,16 @@ function AddPlacePopup({ isOpen, onClose, onPost }) {
 
   return (
     <PopupWithForm
-      name="AddForm"
-      title="Новое место"
+      name='AddForm'
+      title='Новое место'
       isOpen={isOpen}
       onClose={onClose}
       onSubmitForm={handleSubmit}
     >
-      <label className="form__field">
+      <label className='form__field'>
         <InputForm
-          placeholder="Название места"
-          name="place"
+          placeholder='Название места'
+          name='place'
           required
           length={{ min: 1, max: 30 }}
           value={name}
@@ -71,21 +69,20 @@ function AddPlacePopup({ isOpen, onClose, onPost }) {
         />
         <ErrorSpan isActive={isNameValid} errorText={errorName} />
       </label>
-      <label className="form__field">
+      <label className='form__field'>
         <InputForm
-          type="url"
-          placeholder="Ссылка на картинку"
-          name="linkPlace"
+          type='url'
+          placeholder='Ссылка на картинку'
+          name='linkPlace'
           required
           value={link}
           onInputChange={handleLinkChange}
         />
         <ErrorSpan isActive={isLinkValid} errorText={errorLink} />
       </label>
-      <ButtonSubmitForm text="Создать" label="создать" isActive={isValid} />
+      <ButtonSubmitForm text='Создать' label='создать' isActive={isValid} />
     </PopupWithForm>
   );
 }
 
-const MemodAddPlacePopup = React.memo(AddPlacePopup);
-export default MemodAddPlacePopup;
+export default AddPlacePopup;

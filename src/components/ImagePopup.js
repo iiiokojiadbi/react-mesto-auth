@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import classnames from 'classnames';
 
-import Button from './ui/Button';
+import { Button } from './ui';
 
 function ImagePopup({ name, link, onClose, isOpen }) {
   const popupClasses = classnames({
@@ -26,28 +26,27 @@ function ImagePopup({ name, link, onClose, isOpen }) {
   return (
     <section
       className={popupClasses}
-      id="popupCardPreview"
+      id='popupCardPreview'
       onClick={handleOverlayClick}
     >
-      <div className="popup__container">
-        <section className="preview-image popup__preview">
+      <div className='popup__container'>
+        <section className='preview-image popup__preview'>
           <Button
-            action="close"
-            label="закрыть"
-            optionalClasses="popup__btn-close preview-image__btn-close"
+            action='close'
+            label='закрыть'
+            optionalClasses='popup__btn-close preview-image__btn-close'
             onBtnClick={onClose}
           />
           <img
             src={link}
             alt={name}
-            className="preview-image__img popup__img"
+            className='preview-image__img popup__img'
           />
-          <h3 className="preview-image__title popup__title">{name}</h3>
+          <h3 className='preview-image__title popup__title'>{name}</h3>
         </section>
       </div>
     </section>
   );
 }
 
-const MemodImagePopup = React.memo(ImagePopup);
-export default MemodImagePopup;
+export default ImagePopup;

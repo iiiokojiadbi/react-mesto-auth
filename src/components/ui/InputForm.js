@@ -13,7 +13,7 @@ function InputForm({
   return (
     <input
       type={type}
-      className="input form__input"
+      className='input form__input'
       placeholder={placeholder}
       name={name}
       required={required}
@@ -26,5 +26,4 @@ function InputForm({
   );
 }
 
-const MemodInputForm = React.memo(InputForm);
-export default MemodInputForm;
+export default InputForm;

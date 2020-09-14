@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PopupWithForm from './PopupWithForm';
-import ButtonSubmitForm from './ui/ButtonSubmitForm';
-import ErrorSpan from './ui/ErrorSpan';
+import { ButtonSubmitForm, ErrorSpan } from './ui';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdaterUserAvatar }) {
   const inputUrl = useRef();
@@ -42,29 +41,28 @@ function EditAvatarPopup({ isOpen, onClose, onUpdaterUserAvatar }) {
 
   return (
     <PopupWithForm
-      name="EditForm"
-      title="Редактировать профиль"
+      name='EditForm'
+      title='Редактировать профиль'
       isOpen={isOpen}
       onClose={onClose}
       onSubmitForm={handleSubmit}
     >
-      <label className="form__field">
+      <label className='form__field'>
         <input
-          type="url"
-          className="input input_type_hobby form__input"
-          placeholder="Ссылка на новый аватар"
-          name="urlAvatar"
-          id="avatar-input"
+          type='url'
+          className='input input_type_hobby form__input'
+          placeholder='Ссылка на новый аватар'
+          name='urlAvatar'
+          id='avatar-input'
           required
           ref={inputUrl}
           onChange={handleUrlChange}
         />
         <ErrorSpan isActive={isAvatarValid} errorText={errorAvatar} />
       </label>
-      <ButtonSubmitForm text="Сохранить" label="сохранить" isActive={isValid} />
+      <ButtonSubmitForm text='Сохранить' label='сохранить' isActive={isValid} />
     </PopupWithForm>
   );
 }
 
-const MemodEditAvatarPopup = React.memo(EditAvatarPopup);
-export default MemodEditAvatarPopup;
+export default EditAvatarPopup;

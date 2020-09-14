@@ -1,7 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import classnames from 'classnames';
-
-import Button from './ui/Button';
+import { Button } from './ui';
 
 function PopupWithForm({
   name,
@@ -45,19 +44,19 @@ function PopupWithForm({
       id={`popup${name}`}
       onClick={handleOverlayClick}
     >
-      <div className="popup__container">
+      <div className='popup__container'>
         <Button
-          action="close"
-          label="закрыть"
-          optionalClasses="popup__btn-close"
+          action='close'
+          label='закрыть'
+          optionalClasses='popup__btn-close'
           onBtnClick={onClose}
         />
-        <h3 className="popup__title">{title}</h3>
+        <h3 className='popup__title'>{title}</h3>
         <form
           name={name}
-          method="post"
-          action="#"
-          className="form popup__form"
+          method='post'
+          action='#'
+          className='form popup__form'
           onSubmit={handleSubmit}
           noValidate
         >
@@ -68,5 +67,4 @@ function PopupWithForm({
   );
 }
 
-const MemodPopupWithForm = React.memo(PopupWithForm);
-export default MemodPopupWithForm;
+export default PopupWithForm;

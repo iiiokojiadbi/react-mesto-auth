@@ -4,15 +4,14 @@ import logoHeader from '../images/logo.svg';
 
 function Header() {
   return (
-    <header className="header">
+    <header className='header'>
       <img
         src={logoHeader}
-        alt="Изображение логотипа социальной сети Mesto Russia"
-        className="logo header__logo "
+        alt='Изображение логотипа социальной сети Mesto Russia'
+        className='logo header__logo '
       />
     </header>
   );
 }
 
-const MemodHeader = React.memo(Header);
-export default MemodHeader;
+export default Header;

@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
-import ButtonSubmitForm from './ui/ButtonSubmitForm';
-import InputForm from './ui/InputForm';
-import ErrorSpan from './ui/ErrorSpan';
+import { InputForm, ErrorSpan, ButtonSubmitForm } from './ui';
 
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 
@@ -74,29 +72,29 @@ function EditProfilePopup({ isOpen, onClose, onUpdaterUser }) {
 
   return (
     <PopupWithForm
-      name="EditForm"
-      title="Редактировать профиль"
+      name='EditForm'
+      title='Редактировать профиль'
       isOpen={isOpen}
       onClose={handleClose}
       onSubmitForm={handleSubmit}
       isValid={isValid}
     >
-      <label className="form__field">
+      <label className='form__field'>
         <InputForm
-          placeholder="Введите имя"
-          name="name"
+          placeholder='Введите имя'
+          name='name'
           length={{ min: 2, max: 40 }}
-          pattern="[А-Яа-яёЁA-Za-z\s-]*"
+          pattern='[А-Яа-яёЁA-Za-z\s-]*'
           required
           value={name}
           onInputChange={handleNameChange}
         />
         <ErrorSpan isActive={isNameValid} errorText={errorName} />
       </label>
-      <label className="form__field">
+      <label className='form__field'>
         <InputForm
-          placeholder="Введите хобби"
-          name="hobby"
+          placeholder='Введите хобби'
+          name='hobby'
           length={{ min: 2, max: 200 }}
           required
           value={description}
@@ -104,10 +102,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdaterUser }) {
         />
         <ErrorSpan isActive={isDescriptionValid} errorText={errorDescription} />
       </label>
-      <ButtonSubmitForm text="Сохранить" label="сохранить" isActive={isValid} />
+      <ButtonSubmitForm text='Сохранить' label='сохранить' isActive={isValid} />
     </PopupWithForm>
   );
 }
 
-const MemodEditProfilePopup = React.memo(EditProfilePopup);
-export default MemodEditProfilePopup;
+export default EditProfilePopup;

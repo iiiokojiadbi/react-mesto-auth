@@ -10,7 +10,7 @@ function Button({ action, label, onBtnClick, optionalClasses }) {
 
   return (
     <button
-      type="button"
+      type='button'
       aria-label={label}
       className={btnClasses}
       onClick={onBtnClick}
@@ -18,5 +18,4 @@ function Button({ action, label, onBtnClick, optionalClasses }) {
   );
 }
 
-const MemodButton = React.memo(Button);
-export default MemodButton;
+export default Button;

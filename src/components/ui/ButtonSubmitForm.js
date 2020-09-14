@@ -38,5 +38,4 @@ function ButtonSubmitForm({ text, label, isActive }) {
   );
 }
 
-const MemodButtonSubmitForm = React.memo(ButtonSubmitForm);
-export default MemodButtonSubmitForm;
+export default ButtonSubmitForm;

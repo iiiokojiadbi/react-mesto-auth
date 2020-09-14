@@ -10,5 +10,4 @@ function ErrorSpan({ isActive, errorText }) {
   );
 }
 
-const MemodErrorSpan = React.memo(ErrorSpan);
-export default MemodErrorSpan;
+export default ErrorSpan;

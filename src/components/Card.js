@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
 import classnames from 'classnames';
-
-import Button from './ui/Button';
-
+import { Button } from './ui';
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 
 function Card({
@@ -30,26 +28,26 @@ function Card({
   const handleConfirmDelete = () => onConfirmDelete({ cardId: _id });
 
   return (
-    <div className="element">
+    <div className='element'>
       <img
         src={link}
         alt={name}
-        className="element__img"
+        className='element__img'
         onClick={handleCardClick}
       />
-      <h2 className="element__title">{name}</h2>{' '}
-      <span className="element__likes">{likes.length}</span>
+      <h2 className='element__title'>{name}</h2>{' '}
+      <span className='element__likes'>{likes.length}</span>
       <Button
-        action="not-like"
-        label="лайкнуть"
+        action='not-like'
+        label='лайкнуть'
         optionalClasses={btnLikeClasses}
         onBtnClick={handleCardLike}
       />
       {isMyCard && (
         <Button
-          action="trash"
-          label="удалить"
-          optionalClasses="element__btn-trash"
+          action='trash'
+          label='удалить'
+          optionalClasses='element__btn-trash'
           onBtnClick={handleConfirmDelete}
         />
       )}
@@ -57,5 +55,4 @@ function Card({
   );
 }
 
-const MemodCard = React.memo(Card);
-export default MemodCard;
+export default Card;

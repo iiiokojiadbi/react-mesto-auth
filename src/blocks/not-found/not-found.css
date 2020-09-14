@@ -1,0 +1,29 @@
+@import url(./__title/not-found__title.css);
+@import url(./__image/not-found__image.css);
+@import url(./__text/not-found__text.css);
+@import url(./__to-mian/not-found__to-main.css);
+
+.not-found {
+  display: grid;
+  grid-template-areas:
+    'title title image'
+    'text text image'
+    'link link image';
+  justify-content: center;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  max-width: 882px;
+  width: 100%;
+  padding: 40px 40px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 920px) {
+  .not-found {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'title'
+      'text'
+      'link';
+  }
+}

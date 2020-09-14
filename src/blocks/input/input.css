@@ -1,0 +1,23 @@
+.input {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.875rem;
+  line-height: 1.0625rem;
+  color: #000000;
+  padding: 12px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 510px) {
+  .input {
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+  }
+}

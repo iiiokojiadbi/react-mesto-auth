@@ -1,0 +1,22 @@
+.profile__photo {
+  background-color: transparent;
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  margin: 26px 0 0;
+  object-fit: cover;
+  transition: 0.3s;
+  z-index: 0;
+}
+
+@media screen and (min-width: 620px) and (max-width: 920px) {
+  .profile__photo {
+    justify-self: center;
+    width: 172px;
+    height: 172px;
+    margin: 0;
+    grid-row: 1 / 3;
+  }
+}

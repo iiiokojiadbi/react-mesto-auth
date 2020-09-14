@@ -1,0 +1,30 @@
+.profile__user-hobby {
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: lighter;
+  line-height: 1.0625rem;
+  margin: 0;
+  transition: 0.3s;
+  grid-area: hobby;
+  max-width: 400px;
+  justify-self: center;
+  text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 620px) {
+  .profile__user-hobby {
+    line-height: 1rem;
+    font-size: 1.125rem;
+    justify-self: center;
+    max-width: 311px;
+  }
+}
+
+@media screen and (min-width: 920px) {
+  .profile__user-hobby {
+    justify-self: flex-start;
+  }
+}

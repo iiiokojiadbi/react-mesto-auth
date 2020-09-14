@@ -1,0 +1,19 @@
+@import url(./__img/element__img.css);
+@import url(./__info/element__info.css);
+@import url(./__title/element__title.css);
+@import url(./__btn-like/element__btn-like.css);
+@import url(./__btn-trash/element__btn-trash.css);
+@import url(./__likes/element__likes.css);
+
+.element {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  grid-template-rows: 3fr repeat(2, 39.5px);
+  width: 100%;
+  justify-self: center;
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 0;
+}

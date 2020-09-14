@@ -1,0 +1,8 @@
+.form__btn-submit_disabled {
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  opacity: 0.2;
+  pointer-events: none;
+  user-select: none;
+}

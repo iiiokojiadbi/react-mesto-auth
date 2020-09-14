@@ -1,0 +1,16 @@
+.btn_type_not-like {
+  border: none;
+  background-image: url(./../../../images/heart.svg);
+  background-color: transparent;
+  background-size: 21px 19px;
+  background-repeat: no-repeat;
+  padding: 0;
+  width: 21px;
+  height: 19px;
+}
+
+@media screen and (pointer: fine) {
+  .btn_type_not-like:hover {
+    opacity: 0.6;
+  }
+}

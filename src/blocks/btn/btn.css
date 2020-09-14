@@ -1,0 +1,25 @@
+@import url(./_type/btn_type_add.css);
+@import url(./_type/btn_type_edit.css);
+@import url(./_type/btn_type_close.css);
+@import url(./_type/btn_type_submit.css);
+@import url(./_type/btn_type_not-like.css);
+@import url(./_type/btn_type_trash.css);
+@import url(./_type/btn_type_like.css);
+@import url(./_type/btn_type_update.css);
+@import url(./__spinner/btn__spinner.css);
+@import url(./_type/btn_type_to-main.css);
+
+.btn {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  transition: 0.3s;
+  outline: none;
+  box-sizing: border-box;
+}
+
+@media screen and (pointer: fine) {
+  .btn:hover {
+    cursor: pointer;
+  }
+}

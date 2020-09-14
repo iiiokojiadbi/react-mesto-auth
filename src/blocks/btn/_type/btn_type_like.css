@@ -1,0 +1,9 @@
+.btn_type_like {
+  background-image: url(./../../../images/blackHeart.svg);
+}
+
+@media screen and (pointer: fine) {
+  .btn_type_like:hover {
+    opacity: 1;
+  }
+}

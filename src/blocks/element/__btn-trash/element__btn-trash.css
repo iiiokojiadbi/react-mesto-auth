@@ -1,0 +1,8 @@
+.element__btn-trash {
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
+  align-self: flex-start;
+  justify-self: flex-end;
+  margin: 15px 15px 0 0;
+  z-index: 1;
+}

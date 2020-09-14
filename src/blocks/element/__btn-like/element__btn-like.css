@@ -1,0 +1,6 @@
+.element__btn-like {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  align-self: flex-end;
+  margin-right: 18px;
+}

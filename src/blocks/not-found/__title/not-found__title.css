@@ -1,0 +1,16 @@
+.not-found__title {
+  grid-area: title;
+  justify-self: center;
+  align-self: end;
+  color: white;
+  color: #ffffff;
+  font-size: 1.6875rem;
+  font-style: normal;
+  font-weight: 500;
+}
+
+@media (max-width: 510px) {
+  .not-found__title {
+    font-size: 1rem;
+  }
+}

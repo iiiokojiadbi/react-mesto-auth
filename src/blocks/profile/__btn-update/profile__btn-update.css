@@ -1,0 +1,20 @@
+.profile__btn-update {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  align-self: center;
+  justify-self: center;
+  margin: 26px 0 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+.profile__btn-update:hover {
+  opacity: 0.8;
+}
+
+@media screen and (min-width: 620px) and (max-width: 920px) {
+  .profile__btn-update {
+    grid-row: 1 / 3;
+    margin: 0;
+  }
+}

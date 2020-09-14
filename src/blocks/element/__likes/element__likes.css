@@ -1,0 +1,12 @@
+.element__likes {
+  font-style: normal;
+  font-weight: normal;
+  width: 20px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 16px;
+  align-self: flex-start;
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+  margin: 3px 0 0;
+}

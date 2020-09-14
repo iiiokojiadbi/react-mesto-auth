@@ -1,0 +1,21 @@
+.profile__btn-add {
+  grid-row: 3 / 4;
+}
+
+@media screen and (min-width: 620px) {
+  .profile__btn-add {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    align-self: flex-end;
+    justify-self: center;
+  }
+}
+
+@media screen and (min-width: 920px) {
+  .profile__btn-add {
+    grid-column: 3 / 4;
+    grid-row: 1 / 1;
+    align-self: center;
+    justify-self: flex-end;
+  }
+}

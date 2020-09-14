@@ -1,0 +1,16 @@
+.not-found__text {
+  grid-area: text;
+  justify-self: center;
+  display: block;
+  color: white;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 500;
+}
+
+@media (max-width: 510px) {
+  .not-found__text {
+    font-size: 0.9rem;
+  }
+}

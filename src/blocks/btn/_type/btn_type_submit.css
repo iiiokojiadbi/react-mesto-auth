@@ -1,0 +1,30 @@
+.btn_type_submit {
+  color: #ffffff;
+  background-color: #000000;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.125rem;
+  line-height: 1.375rem;
+  text-align: center;
+  border: none;
+  border-radius: 2px;
+  padding: 0;
+  max-width: 430px;
+  width: 100%;
+  height: 50px;
+  transition: 0.3s;
+}
+
+@media screen and (pointer: fine) {
+  .btn_type_submit:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .btn_type_submit {
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+    height: 40px;
+  }
+}

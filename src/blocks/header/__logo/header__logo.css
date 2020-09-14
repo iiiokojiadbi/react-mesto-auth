@@ -1,0 +1,12 @@
+.header__logo {
+  margin-left: 27px;
+  padding: 28px 0 31px;
+  transition: .3s;
+}
+
+@media screen and (min-width: 920px) {
+  .header__logo {
+    margin-left: 0;
+    padding: 45px 0 40px;
+  }
+}

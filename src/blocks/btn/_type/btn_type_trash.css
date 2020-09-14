@@ -1,0 +1,16 @@
+.btn_type_trash {
+  background-image: url(./../../../images/trash.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 18px;
+  height: 19px;
+  background-color: transparent;
+  border: none;
+}
+
+@media screen and (pointer: fine) {
+  .btn_type_trash:hover {
+    opacity: .6;
+  }
+}

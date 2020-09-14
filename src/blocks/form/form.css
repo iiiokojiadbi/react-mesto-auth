@@ -1,0 +1,26 @@
+@import url(./__btn-submit/form__btn-submit.css);
+@import url(./__btn-submit/_disabled/form__btn-submit_disabled.css);
+@import url(./__field/form__field.css);
+@import url(./__input/_type/form__input_type_error.css);
+@import url(./__input/form__input.css);
+@import url(./__input-error/form__input-error.css);
+@import url(./__input-error/_active/form__input-error_active.css);
+
+.form {
+  display: grid;
+  grid-template-columns: minmax(min-content, 358px);
+  grid-template-rows: repeat(4, min-content);
+  width: 100%;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 36px;
+  position: relative;
+  transition: 0.3s;
+}
+
+@media screen and (max-width: 510px) {
+  .form {
+    padding: 30px 20px;
+  }
+}

@@ -1,0 +1,17 @@
+.element__img {
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 282px;
+  transition: 0.3s;
+}
+
+@media (pointer: fine) {
+  .element__img:hover {
+    filter: brightness(120%);
+    cursor: pointer;
+  }
+}

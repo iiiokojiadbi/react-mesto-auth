@@ -1,0 +1,26 @@
+.btn_type_to-main {
+  color: white;
+  width: 150px;
+  height: 60px;
+  border-radius: 2px;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 500;
+}
+
+@media screen and (pointer: fine) {
+  .btn_type_to-main:hover {
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 510px) {
+  .btn_type_to-main {
+    width: 100px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+}

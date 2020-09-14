@@ -1,0 +1,9 @@
+.not-found__image {
+  grid-area: image;
+}
+
+@media (max-width: 920px) {
+  .not-found__image {
+    display: none;
+  }
+}

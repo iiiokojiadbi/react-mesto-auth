@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import Main from './Main';
-import ImagePopup from './ImagePopup';
-import EditProfilePopup from './EditProfilePopup';
-import EditAvatarPopup from './EditAvatarPopup';
-import AddPlacePopup from './AddPlacePopup';
-import DeletePlacePopup from './DeletePlacePopup';
-
-import api from './../utils/Api';
+import Main from './../components/Main';
+import ImagePopup from './../components/ImagePopup';
+import EditProfilePopup from './../components/EditProfilePopup';
+import EditAvatarPopup from './../components/EditAvatarPopup';
+import AddPlacePopup from './../components/AddPlacePopup';
+import DeletePlacePopup from './../components/DeletePlacePopup';
 
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 import { StatusRenderContext } from './../contexts/StatusRenderContext';
+import withApi from './../components/HOC/withApi';
 
-function AdventureBoard() {
+function AdventureBoard({ api }) {
   const [isRenderer, setIsRenderer] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -31,7 +30,7 @@ function AdventureBoard() {
         setCards(cardsData);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
-  }, []);
+  }, [api]);
 
   const handlePreviewOpen = () => setIsPreviewPopupOpen(true);
   const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
@@ -163,4 +162,4 @@ function AdventureBoard() {
   );
 }
 
-export default AdventureBoard;
+export default withApi()(AdventureBoard);

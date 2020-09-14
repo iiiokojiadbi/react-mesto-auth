@@ -1,6 +1,7 @@
 class Api {
-  constructor({ baseUrl, headers }) {
+  constructor({ baseUrl, authUrl, headers }) {
     this._baseUrl = baseUrl;
+    this._authUrl = authUrl;
     this._headers = headers;
   }
 
@@ -75,6 +76,7 @@ class Api {
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12',
+  authUrl: 'https://auth.nomoreparties.co',
   headers: {
     authorization: '71b91625-ec4b-4170-b042-4d00aa6f06b7',
     'Content-Type': 'application/json',

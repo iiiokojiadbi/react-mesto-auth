@@ -5,8 +5,8 @@ const withApi = () => (Wrapped) => {
   return (props) => {
     return (
       <ApiConsumer>
-        {(apiService) => {
-          return <Wrapped {...props} apiService={apiService} />;
+        {(api) => {
+          return <Wrapped {...props} api={api} />;
         }}
       </ApiConsumer>
     );

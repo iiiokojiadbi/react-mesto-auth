@@ -14,13 +14,14 @@ export const useValidater = (initialValue, valid = false) => {
     }
   }, []);
 
-  const resetErrors = useCallback(() => {
+  const reset = useCallback(() => {
+    setInputValue('');
     setInputErrorText('');
   }, []);
 
   useEffect(() => {
     if (inputValue === '') {
-      resetErrors();
+      reset();
       setValidationActive(false);
     }
 
@@ -35,10 +36,11 @@ export const useValidater = (initialValue, valid = false) => {
         setIsInputValid(false);
       }
     }
-  }, [inputErrorText, inputValue, resetErrors, target, validationActive]);
+  }, [inputErrorText, inputValue, reset, target, validationActive]);
 
   return [
     { inputValue, setInputValue, isInputValid, inputErrorText },
     doCheckValid,
+    reset,
   ];
 };

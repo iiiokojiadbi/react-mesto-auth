@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 
 function InputForm({
   type = 'text',
@@ -9,11 +10,18 @@ function InputForm({
   pattern = '.*',
   value = '',
   onInputChange,
+  optionClasses,
 }) {
+  const inputClasses = classnames({
+    input: true,
+    input__form: true,
+    [optionClasses]: optionClasses,
+  });
+
   return (
     <input
       type={type}
-      className='input form__input'
+      className={inputClasses}
       placeholder={placeholder}
       name={name}
       required={required}

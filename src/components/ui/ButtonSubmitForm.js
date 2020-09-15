@@ -6,7 +6,7 @@ import { StatusRenderContext } from './../../contexts/StatusRenderContext';
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
-function ButtonSubmitForm({ text, label, isActive }) {
+function ButtonSubmitForm({ text, label, isActive, optionsClasses }) {
   const isRenderer = useContext(StatusRenderContext);
 
   const btnClasses = classnames({
@@ -14,22 +14,23 @@ function ButtonSubmitForm({ text, label, isActive }) {
     btn_type_submit: true,
     'form__btn-submit': true,
     'form__btn-submit_disabled': !isActive,
+    [optionsClasses]: optionsClasses,
   });
 
   return (
     <button
-      type="submit"
+      type='submit'
       className={btnClasses}
       aria-label={label}
       disabled={!isActive}
     >
       {isRenderer ? (
         <Loader
-          type="ThreeDots"
-          color="#ffffff"
+          type='ThreeDots'
+          color='#ffffff'
           height={80}
           width={80}
-          className="btn__spinner"
+          className='btn__spinner'
         />
       ) : (
         text

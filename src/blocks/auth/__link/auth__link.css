@@ -1,0 +1,17 @@
+.auth__link {
+  justify-self: center;
+  align-self: flex-end;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+@media (pointer: fine) {
+  .auth__link:hover {
+    opacity: 0.6;
+  }
+}

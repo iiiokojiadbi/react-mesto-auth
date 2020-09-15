@@ -1,0 +1,11 @@
+@import url(./__wrapper/auth__wrapper.css);
+@import url(./__title/auth__title.css);
+@import url(./__link/auth__link.css);
+@import url(./__form/auth__form.css);
+@import url(./__input/auth__input.css);
+
+.auth {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}

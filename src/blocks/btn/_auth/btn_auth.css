@@ -1,0 +1,9 @@
+.btn_auth {
+  margin-top: 216px;
+}
+
+@media (max-width: 620px) {
+  .btn_auth {
+    margin-top: 173px;
+  }
+}

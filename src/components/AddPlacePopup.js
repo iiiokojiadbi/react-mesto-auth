@@ -1,54 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useValidater } from '../hooks/useValidater';
 import PopupWithForm from './PopupWithForm';
 import { InputForm, ErrorSpan, ButtonSubmitForm } from './ui';
 
 function AddPlacePopup({ isOpen, onClose, onPost }) {
-  const [name, setName] = useState();
-  const [link, setLink] = useState();
-  const [errorName, setErrorName] = useState('');
-  const [errorLink, setErrorLink] = useState('');
-  const [isNameValid, setIsNameValid] = useState(false);
-  const [isLinkValid, setIsLinkValid] = useState(false);
-  const [isValid, setIsValid] = useState(false);
+  const [
+    {
+      inputValue: name,
+      setInputValue: setName,
+      isInputValid: nameValid,
+      inputErrorText: nameErrorText,
+    },
+    checkName,
+    resetName,
+  ] = useValidater('');
+  const [
+    {
+      inputValue: url,
+      setInputValue: setUrl,
+      isInputValid: urlValid,
+      inputErrorText: urlErrorText,
+    },
+    checkUrl,
+    resetUrl,
+  ] = useValidater('');
 
   useEffect(() => {
-    setName('');
-    setLink('');
-    hideErrors();
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (isNameValid && isLinkValid) setIsValid(true);
-
     return () => {
-      setIsValid(false);
+      resetName();
+      resetUrl();
     };
-  }, [isNameValid, isLinkValid]);
+  }, [isOpen, resetUrl, resetName]);
 
-  const hideErrors = () => {
-    setErrorName('');
-    setErrorLink('');
-    setIsNameValid(false);
-    setIsLinkValid(false);
+  const inputs = {
+    place: (value) => setName(value),
+    linkPlace: (value) => setUrl(value),
   };
 
-  const handleNameChange = (evt) => {
-    const { value, validationMessage, validity } = evt.target;
-    setName(value);
-    if (validationMessage !== errorName) setErrorName(validationMessage);
-    if (validity.valid) setIsNameValid(true);
-    else setIsNameValid(false);
+  const checkers = {
+    place: (target) => checkName(target),
+    linkPlace: (target) => checkUrl(target),
   };
 
-  const handleLinkChange = (evt) => {
-    const { value, validationMessage, validity } = evt.target;
-    setLink(value);
-    if (validationMessage !== errorLink) setErrorLink(validationMessage);
-    if (validity.valid) setIsLinkValid(true);
-    else setIsLinkValid(false);
+  const handleChangeInput = (evt) => {
+    const { value, name, validationMessage, validity } = evt.target;
+    const setInput = inputs[name];
+    const setChecker = checkers[name];
+    setInput(value);
+    setChecker({ validationMessage, validity });
   };
 
-  const handleSubmit = () => onPost({ name, link });
+  const handleSubmit = () => onPost({ name, link: url });
 
   return (
     <PopupWithForm
@@ -65,9 +67,9 @@ function AddPlacePopup({ isOpen, onClose, onPost }) {
           required
           length={{ min: 1, max: 30 }}
           value={name}
-          onInputChange={handleNameChange}
+          onInputChange={handleChangeInput}
         />
-        <ErrorSpan isActive={isNameValid} errorText={errorName} />
+        <ErrorSpan isActive={nameValid} errorText={nameErrorText} />
       </label>
       <label className='form__field'>
         <InputForm
@@ -75,12 +77,16 @@ function AddPlacePopup({ isOpen, onClose, onPost }) {
           placeholder='Ссылка на картинку'
           name='linkPlace'
           required
-          value={link}
-          onInputChange={handleLinkChange}
+          value={url}
+          onInputChange={handleChangeInput}
         />
-        <ErrorSpan isActive={isLinkValid} errorText={errorLink} />
+        <ErrorSpan isActive={urlValid} errorText={urlErrorText} />
       </label>
-      <ButtonSubmitForm text='Создать' label='создать' isActive={isValid} />
+      <ButtonSubmitForm
+        text='Создать'
+        label='создать'
+        isActive={urlValid && nameValid}
+      />
     </PopupWithForm>
   );
 }

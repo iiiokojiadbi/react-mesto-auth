@@ -1,43 +1,25 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
+import { useValidater } from '../hooks/useValidater';
 import PopupWithForm from './PopupWithForm';
 import { ButtonSubmitForm, ErrorSpan } from './ui';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdaterUserAvatar }) {
-  const inputUrl = useRef();
-
-  const [avatar, setAvatar] = useState('');
-  const [errorAvatar, setErrorAvatar] = useState('');
-  const [isAvatarValid, setIsAvatarValid] = useState(false);
-  const [isValid, setIsValid] = useState(false);
-
-  useEffect(() => {
-    setAvatar('');
-    inputUrl.current.value = '';
-    hideErrors();
-  }, [isOpen]);
+  const [
+    { inputValue, setInputValue, isInputValid, inputErrorText },
+    doCheckValid,
+    reset,
+  ] = useValidater('');
 
   useEffect(() => {
-    if (isAvatarValid) setIsValid(true);
-    return () => setIsValid(false);
-  }, [isAvatarValid]);
+    reset();
+  }, [isOpen, reset]);
 
-  const hideErrors = () => {
-    setErrorAvatar('');
-    setIsAvatarValid(false);
+  const handleUrlChange = (evt) => {
+    setInputValue(evt.target.value);
+    doCheckValid(evt.target);
   };
 
-  const handleUrlChange = () => {
-    const { value, validationMessage, validity } = inputUrl.current;
-    setAvatar(value);
-    if (validationMessage !== errorAvatar) setErrorAvatar(validationMessage);
-    if (validity.valid) setIsAvatarValid(true);
-    else setIsAvatarValid(false);
-  };
-
-  const handleSubmit = () =>
-    onUpdaterUserAvatar({
-      avatar,
-    });
+  const handleSubmit = () => onUpdaterUserAvatar({ avatar: inputValue });
 
   return (
     <PopupWithForm
@@ -55,12 +37,16 @@ function EditAvatarPopup({ isOpen, onClose, onUpdaterUserAvatar }) {
           name='urlAvatar'
           id='avatar-input'
           required
-          ref={inputUrl}
+          value={inputValue}
           onChange={handleUrlChange}
         />
-        <ErrorSpan isActive={isAvatarValid} errorText={errorAvatar} />
+        <ErrorSpan isActive={isInputValid} errorText={inputErrorText} />
       </label>
-      <ButtonSubmitForm text='Сохранить' label='сохранить' isActive={isValid} />
+      <ButtonSubmitForm
+        text='Сохранить'
+        label='сохранить'
+        isActive={isInputValid}
+      />
     </PopupWithForm>
   );
 }

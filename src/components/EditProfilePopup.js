@@ -1,73 +1,74 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 import { InputForm, ErrorSpan, ButtonSubmitForm } from './ui';
 
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
+import { useValidater } from '../hooks/useValidater';
 
 function EditProfilePopup({ isOpen, onClose, onUpdaterUser }) {
   const currentUser = useContext(CurrentUserContext);
 
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [errorName, setErrorName] = useState('');
-  const [errorDescription, setErrorDescription] = useState('');
-  const [isNameValid, setIsNameValid] = useState(false);
-  const [isDescriptionValid, setIsDescriptionValid] = useState(false);
-  const [isValid, setIsValid] = useState(false);
+  const [
+    {
+      inputValue: name,
+      setInputValue: setName,
+      isInputValid: nameValid,
+      inputErrorText: nameErrorText,
+    },
+    checkName,
+    resetName,
+  ] = useValidater(currentUser.name, true);
+  const [
+    {
+      inputValue: about,
+      setInputValue: setAbout,
+      isInputValid: aboutValid,
+      inputErrorText: aboutErrorText,
+    },
+    checkAbout,
+    resetAbout,
+  ] = useValidater(currentUser.about, true);
 
   useEffect(() => {
-    const { name, about } = currentUser;
-    setName(name);
-    setDescription(about);
-  }, [currentUser]);
-
-  useEffect(() => {
-    hideErrors();
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (isNameValid && isDescriptionValid) setIsValid(true);
+    setName(currentUser.name);
+    setAbout(currentUser.about);
 
     return () => {
-      setIsValid(false);
+      resetName();
+      resetAbout();
     };
-  }, [isNameValid, isDescriptionValid]);
+  }, [
+    currentUser.about,
+    currentUser.name,
+    isOpen,
+    resetAbout,
+    resetName,
+    setAbout,
+    setName,
+  ]);
 
-  const hideErrors = () => {
-    setErrorName('');
-    setErrorDescription('');
-    setIsNameValid(true);
-    setIsDescriptionValid(true);
+  const inputs = {
+    name: (value) => setName(value),
+    about: (value) => setAbout(value),
   };
 
-  const handleNameChange = (evt) => {
-    const { value, validationMessage, validity } = evt.target;
-    setName(value);
-    if (validationMessage !== errorName) setErrorName(validationMessage);
-    if (validity.valid) setIsNameValid(true);
-    else setIsNameValid(false);
+  const checkers = {
+    name: (target) => checkName(target),
+    about: (target) => checkAbout(target),
   };
 
-  const handleDescriptionChange = (evt) => {
-    const { value, validationMessage, validity } = evt.target;
-    setDescription(value);
-    if (validationMessage !== errorDescription)
-      setErrorDescription(validationMessage);
-    if (validity.valid) setIsDescriptionValid(true);
-    else setIsDescriptionValid(false);
-  };
-
-  const handleClose = () => {
-    const { name, about } = currentUser;
-    setName(name);
-    setDescription(about);
-    onClose();
+  const handleChangeInput = (evt) => {
+    const { value, name, validationMessage, validity } = evt.target;
+    const setInput = inputs[name];
+    const setChecker = checkers[name];
+    setInput(value);
+    setChecker({ validationMessage, validity });
   };
 
   const handleSubmit = () =>
     onUpdaterUser({
       name,
-      about: description,
+      about,
     });
 
   return (
@@ -75,9 +76,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdaterUser }) {
       name='EditForm'
       title='Редактировать профиль'
       isOpen={isOpen}
-      onClose={handleClose}
+      onClose={onClose}
       onSubmitForm={handleSubmit}
-      isValid={isValid}
     >
       <label className='form__field'>
         <InputForm
@@ -87,22 +87,26 @@ function EditProfilePopup({ isOpen, onClose, onUpdaterUser }) {
           pattern='[А-Яа-яёЁA-Za-z\s-]*'
           required
           value={name}
-          onInputChange={handleNameChange}
+          onInputChange={handleChangeInput}
         />
-        <ErrorSpan isActive={isNameValid} errorText={errorName} />
+        <ErrorSpan isActive={nameValid} errorText={nameErrorText} />
       </label>
       <label className='form__field'>
         <InputForm
           placeholder='Введите хобби'
-          name='hobby'
+          name='about'
           length={{ min: 2, max: 200 }}
           required
-          value={description}
-          onInputChange={handleDescriptionChange}
+          value={about}
+          onInputChange={handleChangeInput}
         />
-        <ErrorSpan isActive={isDescriptionValid} errorText={errorDescription} />
+        <ErrorSpan isActive={aboutValid} errorText={aboutErrorText} />
       </label>
-      <ButtonSubmitForm text='Сохранить' label='сохранить' isActive={isValid} />
+      <ButtonSubmitForm
+        text='Сохранить'
+        label='сохранить'
+        isActive={nameValid && aboutValid}
+      />
     </PopupWithForm>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-function Button({ action, label, onBtnClick, optionalClasses }) {
+function Button({ action, label, onBtnClick, optionalClasses, text = '' }) {
   const btnClasses = classnames({
     btn: true,
     [`btn_type_${action}`]: action || false,
@@ -14,7 +14,9 @@ function Button({ action, label, onBtnClick, optionalClasses }) {
       aria-label={label}
       className={btnClasses}
       onClick={onBtnClick}
-    ></button>
+    >
+      {text}
+    </button>
   );
 }
 

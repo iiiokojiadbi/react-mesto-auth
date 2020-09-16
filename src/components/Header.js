@@ -4,24 +4,32 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
 import logoHeader from '../images/logo.svg';
 import { Button } from './ui';
 
+import { useSuccess, useFailure } from './../contexts/StatusFetchContext';
+
 function Header(props) {
-  console.log(props);
-  const { onLogout, userInfo, history, location } = props;
+  const { onLogout, history, location, userInfo, loggedIn } = props;
   const isLogin = location.pathname === '/sign-in';
-  const linkText = isLogin ? 'Регистрация' : 'Войти';
-  const linkPath = isLogin ? '/sign-up' : '/sign-in';
+  const isMain = location.pathname === '/';
 
   return (
     <header className='header'>
-      <Link to='/'>
-        <img
-          src={logoHeader}
-          alt='Изображение логотипа социальной сети Mesto Russia'
-          className='logo header__logo '
-        />
-      </Link>
+      <img
+        src={logoHeader}
+        alt='Изображение логотипа социальной сети Mesto Russia'
+        className='logo header__logo '
+      />
       <div className='header__nav'>
-        {location.pathname === '/' && userInfo ? (
+        {isLogin && !isMain && (
+          <NavLink to='/sign-up' className='header__link'>
+            Регистрация
+          </NavLink>
+        )}
+        {!isLogin && !isMain && (
+          <NavLink to='/sign-in' className='header__link'>
+            Войти
+          </NavLink>
+        )}
+        {isMain && loggedIn && userInfo && (
           <>
             <span className='header__email'>{userInfo.email}</span>
             <Button
@@ -34,14 +42,25 @@ function Header(props) {
               }}
             />
           </>
-        ) : (
-          <NavLink to={linkPath} className='header__link'>
-            {linkText}
-          </NavLink>
         )}
       </div>
     </header>
   );
 }
+
+/* 
+<>
+            <span className='header__email'>{userInfo.email}</span>
+            <Button
+              text='Выйти'
+              label='выйти'
+              action='header'
+              onBtnClick={() => {
+                onLogout();
+                history.push('/sign-in');
+              }}
+            />
+          </>
+*/
 
 export default withRouter(Header);

@@ -5,3 +5,9 @@
   line-height: 22px;
   color: #ffffff;
 }
+
+@media (max-width: 420px) {
+  .header__email {
+    display: none;
+  }
+}

@@ -16,30 +16,30 @@ function Header(props) {
         alt='Изображение логотипа социальной сети Mesto Russia'
         className='logo header__logo '
       />
-      <div className='header__nav'>
-        {!loggedIn && (
+      {!loggedIn && (
+        <div className='header__nav'>
           <NavLink
             to={isLogin ? '/sign-up' : '/sign-in'}
             className='header__link'
           >
             {isLogin ? 'Регистрация' : 'Войти'}
           </NavLink>
-        )}
-        {isMain && loggedIn && userInfo && (
-          <>
-            <span className='header__email'>{userInfo.email}</span>
-            <Button
-              text='Выйти'
-              label='выйти'
-              action='header'
-              onBtnClick={() => {
-                onLogout();
-                history.push('/sign-in');
-              }}
-            />
-          </>
-        )}
-      </div>
+        </div>
+      )}
+      {isMain && loggedIn && userInfo && (
+        <div className='header__nav'>
+          <span className='header__email'>{userInfo.email}</span>
+          <Button
+            text='Выйти'
+            label='выйти'
+            action='header'
+            onBtnClick={() => {
+              onLogout();
+              history.push('/sign-in');
+            }}
+          />
+        </div>
+      )}
     </header>
   );
 }

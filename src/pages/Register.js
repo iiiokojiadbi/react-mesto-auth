@@ -1,35 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
 import { useValidater } from '../hooks/useValidater';
 
 import { InputForm, ButtonSubmitForm, ErrorSpan } from './../components/ui';
 import useLocalStorage from './../hooks/useLocalStorage';
+import InfoTooltip from './../components/InfoTooltip';
+
+import {
+  useFailure,
+  useFailureToggle,
+  useSuccess,
+  useSuccessToggle,
+} from '../contexts/StatusFetchContext';
 
 import api from '../utils/Api';
 
-function getPageOptions(isLogin) {
-  if (isLogin) {
-    return {
-      title: 'Вход',
-      buttonText: 'войти',
-      linkText: 'Еще не зарегистрированы? Регистрация',
-      linkUrl: '/sign-up',
-    };
-  } else {
-    return {
-      title: 'Регистрация',
-      buttonText: 'зарегистрироваться',
-      linkText: 'Уже зарегистрированы? Войти',
-      linkUrl: '/sign-in',
-    };
-  }
-}
-
-function Authentication(props) {
-  const { match, loggedIn, history } = props;
-  const isLogin = match.path === '/sign-in';
-  const pageOptions = getPageOptions(isLogin);
-  const [, setJwt] = useLocalStorage('jwt');
+function Register(props) {
+  const { history } = props;
+  const failureStatus = useFailure();
+  const failureStatusToggle = useFailureToggle();
+  const successStatus = useSuccess();
+  const successStatusToggle = useSuccessToggle();
 
   const [
     {
@@ -70,33 +61,29 @@ function Authentication(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (isLogin) {
-      api
-        .loginUser({ email, password })
-        .then(({ token }) => {
-          setJwt(token);
-          props.onLoggedIn(true);
-        })
-        .catch((err) => console.log('Ошибка', err));
-    } else {
-      api
-        .regUser({ email, password })
-        .then((data) => {
-          console.log(data);
-          history.push('/');
-        })
-        .catch((err) => console.log('Ошибка', err));
-    }
+    api
+      .regUser({ email, password })
+      .then((data) => {
+        console.log(data);
+        history.push('/sign-in');
+        successStatusToggle();
+      })
+      .catch((err) => {
+        console.log(err);
+        failureStatusToggle();
+      });
   };
 
-  if (loggedIn) {
-    return <Redirect to='/' />;
-  }
+  const handleClose = () => {
+    setEmail('');
+    setPassword('');
+    failureStatusToggle();
+  };
 
   return (
     <div className='auth'>
       <div className='auth__wrapper'>
-        <h3 className='auth__title'>{pageOptions.title} </h3>
+        <h3 className='auth__title'>Регистрация</h3>
         <form
           method='post'
           action='#'
@@ -114,7 +101,11 @@ function Authentication(props) {
               onInputChange={handleChangeInput}
               optionClasses='auth__input'
             />
-            <ErrorSpan isActive={emailValid} errorText={emailErrorText} optionsClasses='form__input-error_auth' />
+            <ErrorSpan
+              isActive={emailValid}
+              errorText={emailErrorText}
+              optionsClasses='form__input-error_auth'
+            />
           </label>
           <label className='form__field form__field_auth'>
             <InputForm
@@ -130,17 +121,19 @@ function Authentication(props) {
           </label>
           <ButtonSubmitForm
             isActive={emailValid && passwordValid}
-            text={pageOptions.buttonText}
-            label={pageOptions.buttonText}
+            text='зарегистрироваться'
+            label='зарегистрироваться'
             optionsClasses='btn_auth'
           />
         </form>
-        <NavLink to={pageOptions.linkUrl} className='auth__link'>
-          {pageOptions.linkText}
+        <NavLink to='/sign-in' className='auth__link'>
+          Уже зарегистрированы? Войти
         </NavLink>
       </div>
+      <InfoTooltip isOpen={successStatus} onClose={successStatusToggle} />
+      <InfoTooltip isOpen={failureStatus} onClose={handleClose} type='error' />
     </div>
   );
 }
 
-export default Authentication;
+export default Register;

@@ -1,5 +1,6 @@
 import AdventureBoard from './AdventureBoard';
-import Authentication from './Authentication';
+import Register from './Register';
+import Login from './Login';
 import PageNotFound from './PageNotFound';
 
-export { Authentication, AdventureBoard, PageNotFound };
+export { Register, AdventureBoard, PageNotFound, Login };

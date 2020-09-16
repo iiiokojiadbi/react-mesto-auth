@@ -8,9 +8,10 @@ import DeletePlacePopup from './../components/DeletePlacePopup';
 
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 import { StatusRenderContext } from './../contexts/StatusRenderContext';
-import withApi from './../components/HOC/withApi';
 
-function AdventureBoard({ api }) {
+import api from '../utils/Api';
+
+function AdventureBoard() {
   const [isRenderer, setIsRenderer] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -30,7 +31,7 @@ function AdventureBoard({ api }) {
         setCards(cardsData);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
-  }, [api]);
+  }, []);
 
   const handlePreviewOpen = () => setIsPreviewPopupOpen(true);
   const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
@@ -162,4 +163,4 @@ function AdventureBoard({ api }) {
   );
 }
 
-export default withApi()(AdventureBoard);
+export default AdventureBoard;

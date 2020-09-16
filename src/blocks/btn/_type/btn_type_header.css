@@ -1,0 +1,19 @@
+.btn_type_header {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: 0.3s;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+}
+
+@media (pointer: fine) {
+  .btn_type_header:hover {
+    opacity: 0.6;
+  }
+}

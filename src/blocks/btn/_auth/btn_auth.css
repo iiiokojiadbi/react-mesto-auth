@@ -1,9 +1,19 @@
 .btn_auth {
   margin-top: 216px;
+  background-color: #ffffff;
+  color: #000;
+  text-transform: capitalize;
 }
 
 @media (max-width: 620px) {
   .btn_auth {
     margin-top: 173px;
+  }
+}
+
+@media (pointer: fine) {
+  .btn_auth:hover {
+    background: #ffffff;
+    opacity: 0.85;
   }
 }

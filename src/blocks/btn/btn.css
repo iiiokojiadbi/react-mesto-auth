@@ -8,6 +8,7 @@
 @import url(./_type/btn_type_update.css);
 @import url(./__spinner/btn__spinner.css);
 @import url(./_type/btn_type_to-main.css);
+@import url(./_type/btn_type_header.css);
 
 .btn {
   display: grid;

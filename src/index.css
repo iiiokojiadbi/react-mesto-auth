@@ -19,3 +19,5 @@
 @import url(./blocks/not-found/not-found.css);
 @import url(./blocks/auth/auth.css);
 @import url(./blocks/btn/_auth/btn_auth.css);
+@import url(./blocks/tooltip/tooltip.css);
+@import url(./blocks/tooltip/_disabled/tooltip_disabled.css);

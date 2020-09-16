@@ -1,8 +1,11 @@
 class Api {
-  constructor({ baseUrl, authUrl, headers }) {
+  constructor({ baseUrl, authUrl }) {
     this._baseUrl = baseUrl;
     this._authUrl = authUrl;
-    this._headers = headers;
+    this._headers = {
+      authorization: '71b91625-ec4b-4170-b042-4d00aa6f06b7',
+      'Content-Type': 'application/json',
+    };
   }
 
   getInitialData() {
@@ -14,6 +17,39 @@ class Api {
       return response.json();
     }
     return Promise.reject(`Ошибка: ${response.status}`);
+  }
+
+  setToken(token) {
+    this._headers = {
+      ...this._headers,
+      authorization: token,
+    };
+  }
+
+  regUser(body) {
+    return fetch(`${this._authUrl}/signup`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(body),
+    })
+      .then(this._returnResponse)
+      .then((data) => {
+        this._id = data._id;
+      });
+  }
+
+  loginUser(body) {
+    return fetch(`${this._authUrl}/signin`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(body),
+    }).then(this._returnResponse);
+  }
+
+  checkUser(body) {
+    return fetch(`${this._authUrl}/users/me`, {
+      headers: { ...this._headers, authorization: body },
+    }).then(this._returnResponse);
   }
 
   _getInitialCards() {
@@ -77,10 +113,6 @@ class Api {
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12',
   authUrl: 'https://auth.nomoreparties.co',
-  headers: {
-    authorization: '71b91625-ec4b-4170-b042-4d00aa6f06b7',
-    'Content-Type': 'application/json',
-  },
 });
 
 export default api;

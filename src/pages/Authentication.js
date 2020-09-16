@@ -1,7 +1,11 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { useValidater } from '../hooks/useValidater';
+
 import { InputForm, ButtonSubmitForm, ErrorSpan } from './../components/ui';
+import useLocalStorage from './../hooks/useLocalStorage';
+
+import api from '../utils/Api';
 
 function getPageOptions(isLogin) {
   if (isLogin) {
@@ -22,8 +26,10 @@ function getPageOptions(isLogin) {
 }
 
 function Authentication(props) {
-  const isLogin = props.match.path === '/sign-in';
+  const { match, loggedIn, history } = props;
+  const isLogin = match.path === '/sign-in';
   const pageOptions = getPageOptions(isLogin);
+  const [, setJwt] = useLocalStorage('jwt');
 
   const [
     {
@@ -64,8 +70,28 @@ function Authentication(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log({ email, password });
+    if (isLogin) {
+      api
+        .loginUser({ email, password })
+        .then(({ token }) => {
+          setJwt(token);
+          props.onLoggedIn(true);
+        })
+        .catch((err) => console.log('Ошибка', err));
+    } else {
+      api
+        .regUser({ email, password })
+        .then((data) => {
+          console.log(data);
+          history.push('/');
+        })
+        .catch((err) => console.log('Ошибка', err));
+    }
   };
+
+  if (loggedIn) {
+    return <Redirect to='/' />;
+  }
 
   return (
     <div className='auth'>
@@ -88,7 +114,7 @@ function Authentication(props) {
               onInputChange={handleChangeInput}
               optionClasses='auth__input'
             />
-            <ErrorSpan isActive={emailValid} errorText={emailErrorText} />
+            <ErrorSpan isActive={emailValid} errorText={emailErrorText} optionsClasses='form__input-error_auth' />
           </label>
           <label className='form__field form__field_auth'>
             <InputForm

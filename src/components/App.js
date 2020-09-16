@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { AdventureBoard, PageNotFound, Register, Login } from './../pages';
 import Header from './Header';
 import Footer from './Footer';

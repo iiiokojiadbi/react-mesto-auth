@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink, Link, withRouter } from 'react-router-dom';
+import React from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
 
 import logoHeader from '../images/logo.svg';
 import { Button } from './ui';
-
-import { useSuccess, useFailure } from './../contexts/StatusFetchContext';
 
 function Header(props) {
   const { onLogout, history, location, userInfo, loggedIn } = props;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
 import { useValidater } from '../hooks/useValidater';
 
@@ -16,7 +16,7 @@ import {
 import api from '../utils/Api';
 
 function Login(props) {
-  const { loggedIn, onLoggedIn, history, checkToken } = props;
+  const { loggedIn, onLoggedIn, checkToken } = props;
   const [, setJwt] = useLocalStorage('jwt');
   const failureStatus = useFailure();
   const successStatus = useSuccess();

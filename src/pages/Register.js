@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { useValidater } from '../hooks/useValidater';
 
 import { InputForm, ButtonSubmitForm, ErrorSpan } from './../components/ui';
-import useLocalStorage from './../hooks/useLocalStorage';
 import InfoTooltip from './../components/InfoTooltip';
 
 import {

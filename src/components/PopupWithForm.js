@@ -4,7 +4,7 @@ import { Button } from './ui';
 
 function PopupWithForm({
   name,
-  title,
+  title = '',
   isOpen = false,
   onClose,
   onSubmitForm,
@@ -30,7 +30,7 @@ function PopupWithForm({
   }, [isOpen, linkClose]);
 
   const handleOverlayClick = (evt) => {
-    if (evt.target.classList.contains('popup')) onClose(); // ???
+    if (evt.target.classList.contains('popup')) onClose();
   };
 
   const handleSubmit = (evt) => {

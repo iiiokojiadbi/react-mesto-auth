@@ -17,14 +17,12 @@ function Header(props) {
         className='logo header__logo '
       />
       <div className='header__nav'>
-        {isLogin && !isMain && (
-          <NavLink to='/sign-up' className='header__link'>
-            Регистрация
-          </NavLink>
-        )}
-        {!isLogin && !isMain && (
-          <NavLink to='/sign-in' className='header__link'>
-            Войти
+        {!loggedIn && (
+          <NavLink
+            to={isLogin ? '/sign-up' : '/sign-in'}
+            className='header__link'
+          >
+            {isLogin ? 'Регистрация' : 'Войти'}
           </NavLink>
         )}
         {isMain && loggedIn && userInfo && (

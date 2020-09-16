@@ -48,6 +48,7 @@ class Api {
 
   checkUser(body) {
     return fetch(`${this._authUrl}/users/me`, {
+      method: 'GET',
       headers: { ...this._headers, authorization: body },
     }).then(this._returnResponse);
   }

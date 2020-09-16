@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { AdventureBoard, PageNotFound, Register, Login } from './../pages';
+import { AdventureBoard, Register, Login } from './../pages';
 import Header from './Header';
 import Footer from './Footer';
 import { ProtectedRoute } from './HOC';
@@ -20,19 +20,26 @@ function App(props) {
   const [fetched, setFetched] = useState(false);
   const [tokenValid, setTokenValid] = useState(false);
 
-  const checkToken = useCallback((token) => {
-    api
-      .checkUser(`Bearer ${token}`)
-      .then(({ data }) => {
-        setLoggedIn(true);
-        setFetched(true);
-        setTokenValid(true);
-        setUserInfo(data);
-      })
-      .catch((err) => {
-        console.log('Ошибка', err);
-      });
-  }, []);
+  const checkToken = useCallback(
+    (tokenToCheck) => {
+      if (!tokenToCheck) {
+        tokenToCheck = token;
+      }
+
+      api
+        .checkUser(`Bearer ${tokenToCheck}`)
+        .then(({ data }) => {
+          setLoggedIn(true);
+          setFetched(true);
+          setTokenValid(true);
+          setUserInfo(data);
+        })
+        .catch((err) => {
+          console.log('Ошибка', err);
+        });
+    },
+    [token]
+  );
 
   useEffect(() => {
     if (token && !fetched) {

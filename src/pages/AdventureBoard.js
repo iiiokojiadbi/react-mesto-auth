@@ -10,6 +10,8 @@ import { CurrentUserContext } from './../contexts/CurrentUserContext';
 import { StatusRenderContext } from './../contexts/StatusRenderContext';
 
 import api from '../utils/Api';
+import InfoTooltip from '../components/InfoTooltip';
+import { useSuccess, useSuccessToggle } from '../contexts/StatusFetchContext';
 
 function AdventureBoard() {
   const [isRenderer, setIsRenderer] = useState(false);
@@ -22,6 +24,9 @@ function AdventureBoard() {
   const [selectedDeleteCardId, setSelectedDeleteCardId] = useState('');
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+
+  const successStatus = useSuccess();
+  const successStatusToggle = useSuccessToggle();
 
   useEffect(() => {
     api
@@ -157,6 +162,7 @@ function AdventureBoard() {
             onClose={handleCloseAllPopups}
             onDelete={handleCardDelete}
           />
+          <InfoTooltip isOpen={successStatus} onClose={successStatusToggle} />
         </StatusRenderContext.Provider>
       </CurrentUserContext.Provider>
     </>

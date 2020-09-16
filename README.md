@@ -28,4 +28,4 @@
 
 **Проект**
 
-- [Ссылка на проект в github](https://iiiokojiadbi.github.io/mesto-react-auth/)
+- [Ссылка на проект в github](https://iiiokojiadbi.github.io/react-mesto-auth/)

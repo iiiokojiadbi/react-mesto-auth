@@ -63,7 +63,6 @@ function Register(props) {
     api
       .regUser({ email, password })
       .then((data) => {
-        console.log(data);
         history.push('/sign-in');
         successStatusToggle();
       })

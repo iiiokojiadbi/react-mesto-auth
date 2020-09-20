@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import { Button } from './ui';
 import compose from '../utils/compose';

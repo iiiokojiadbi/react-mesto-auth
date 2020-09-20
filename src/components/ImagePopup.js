@@ -1,33 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import classnames from 'classnames';
 
 import { Button } from './ui';
+import { withEscHandler } from './HOC';
+import compose from './../utils/compose';
 
-function ImagePopup({ name, link, onClose, isOpen }) {
+function ImagePopup({ name, link, onClose, isOpen, onOverlayClick }) {
   const popupClasses = classnames({
     popup: true,
     popup_disabled: !isOpen,
   });
 
-  useEffect(() => {
-    const handleEscListener = (evt) => {
-      if (evt.key === 'Escape') onClose();
-    };
-
-    if (isOpen) document.addEventListener('keydown', handleEscListener);
-
-    return () => document.removeEventListener('keydown', handleEscListener);
-  }, [isOpen, onClose]);
-
-  const handleOverlayClick = (evt) => {
-    if (evt.target.classList.contains('popup')) onClose();
-  };
-
   return (
     <section
       className={popupClasses}
       id='popupCardPreview'
-      onClick={handleOverlayClick}
+      onClick={onOverlayClick}
     >
       <div className='popup__container'>
         <section className='preview-image popup__preview'>
@@ -49,4 +37,4 @@ function ImagePopup({ name, link, onClose, isOpen }) {
   );
 }
 
-export default ImagePopup;
+export default compose(withEscHandler('popup'))(ImagePopup);

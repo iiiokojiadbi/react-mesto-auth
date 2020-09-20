@@ -14,7 +14,7 @@ import api from '../utils/Api';
 function App(props) {
   const { history } = props;
   const { pathname } = props.location;
-  const [token, setToken] = useLocalStorage('jwt');
+  const [token, setToken, removeToken] = useLocalStorage('jwt');
   const [loggedIn, setLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [fetched, setFetched] = useState(false);
@@ -48,7 +48,7 @@ function App(props) {
   }, [token, loggedIn, pathname, userInfo, fetched, history, checkToken]);
 
   const handleLogout = () => {
-    setToken('');
+    removeToken();
     setFetched(false);
     setTokenValid(false);
     setLoggedIn(false);

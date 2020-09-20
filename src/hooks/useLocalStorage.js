@@ -5,9 +5,13 @@ export default (key, initialValue = '') => {
     return localStorage.getItem(key) || initialValue;
   });
 
+  const removeKey = () => {
+    localStorage.removeItem(key);
+  };
+
   useEffect(() => {
     localStorage.setItem(key, value);
   }, [value, key]);
 
-  return [value, setValue];
+  return [value, setValue, removeKey];
 };

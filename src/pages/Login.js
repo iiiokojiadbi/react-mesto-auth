@@ -13,10 +13,7 @@ import {
   useSuccessToggle,
 } from '../contexts/StatusFetchContext';
 
-import api from '../utils/Api';
-
-function Login(props) {
-  const { loggedIn, onLoggedIn, checkToken } = props;
+function Login({ loggedIn, onLoggedIn, requestСheckToken, requestLogin }) {
   const [, setJwt] = useLocalStorage('jwt');
   const failureStatus = useFailure();
   const successStatus = useSuccess();
@@ -62,15 +59,14 @@ function Login(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    api
-      .loginUser({ email, password })
+    requestLogin({ email, password })
       .then(({ token }) => {
         setJwt(token);
         onLoggedIn(true);
         successStatusToggle();
         return token;
       })
-      .then(checkToken)
+      .then(requestСheckToken)
       .catch((err) => {
         console.log(err);
         failureStatusToggle();

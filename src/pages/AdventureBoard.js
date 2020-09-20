@@ -9,11 +9,17 @@ import DeletePlacePopup from './../components/DeletePlacePopup';
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 import { StatusRenderContext } from './../contexts/StatusRenderContext';
 
-import api from '../utils/Api';
 import InfoTooltip from '../components/InfoTooltip';
 import { useSuccess, useSuccessToggle } from '../contexts/StatusFetchContext';
 
-function AdventureBoard() {
+function AdventureBoard({
+  requestGetInitialData,
+  requestUpdateUserInfo,
+  requestUpdateUserAvatar,
+  requestLikeCard,
+  requestDeleteCard,
+  requestPostCard,
+}) {
   const [isRenderer, setIsRenderer] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -29,14 +35,13 @@ function AdventureBoard() {
   const successStatusToggle = useSuccessToggle();
 
   useEffect(() => {
-    api
-      .getInitialData()
+    requestGetInitialData()
       .then(([userData, cardsData]) => {
         setCurrentUser(userData);
         setCards(cardsData);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
-  }, []);
+  }, [requestGetInitialData]);
 
   const handlePreviewOpen = () => setIsPreviewPopupOpen(true);
   const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
@@ -61,8 +66,7 @@ function AdventureBoard() {
 
   const handleUpdaterUser = ({ name, about }) => {
     setIsRenderer(true);
-    api
-      .updateUserInfo({ name, about })
+    requestUpdateUserInfo({ name, about })
       .then((newUserData) => {
         setCurrentUser(newUserData);
         handleCloseAllPopups();
@@ -73,8 +77,7 @@ function AdventureBoard() {
 
   const handleUpdaterAvatar = ({ avatar }) => {
     setIsRenderer(true);
-    api
-      .updateUserAvatar({ avatar })
+    requestUpdateUserAvatar({ avatar })
       .then((newUserData) => {
         setCurrentUser(newUserData);
         handleCloseAllPopups();
@@ -85,8 +88,7 @@ function AdventureBoard() {
 
   const handleCardLike = ({ likes, cardId }) => {
     const isLiked = likes.some((owner) => owner._id === currentUser._id);
-    api
-      .likeCard({ isLiked, cardId })
+    requestLikeCard({ isLiked, cardId })
       .then((likes) => {
         const newCards = cards.map((card) =>
           card._id === cardId ? { ...card, likes: likes } : card
@@ -98,8 +100,7 @@ function AdventureBoard() {
 
   const handleCardDelete = () => {
     setIsRenderer(true);
-    api
-      .deleteCard({ cardId: selectedDeleteCardId })
+    requestDeleteCard({ cardId: selectedDeleteCardId })
       .then(() => {
         const newCards = cards.filter(
           (card) => card._id !== selectedDeleteCardId
@@ -113,8 +114,7 @@ function AdventureBoard() {
 
   const handleAddPlace = ({ name, link }) => {
     setIsRenderer(true);
-    api
-      .postCard({ name, link })
+    requestPostCard({ name, link })
       .then((newCard) => {
         setCards([newCard, ...cards]);
         handleCloseAllPopups();
@@ -151,7 +151,6 @@ function AdventureBoard() {
             onClose={handleCloseAllPopups}
             onUpdaterUserAvatar={handleUpdaterAvatar}
           />
-
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={handleCloseAllPopups}

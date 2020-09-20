@@ -65,6 +65,12 @@ function App(props) {
             component={AdventureBoard}
             loggedIn={loggedIn}
             tokenValid={tokenValid}
+            requestGetInitialData={api.getInitialData}
+            requestUpdateUserInfo={api.updateUserInfo}
+            requestUpdateUserAvatar={api.updateUserAvatar}
+            requestLikeCard={api.likeCard}
+            requestDeleteCard={api.deleteCard}
+            requestPostCard={api.postCard}
           />
           <Route
             path='/sign-in'
@@ -73,18 +79,15 @@ function App(props) {
                 {...props}
                 onLoggedIn={setLoggedIn}
                 loggedIn={loggedIn}
-                checkToken={checkToken}
+                requestСheckToken={checkToken}
+                requestLogin={api.loginUser}
               />
             )}
           />
           <Route
             path='/sign-up'
             render={(props) => (
-              <Register
-                {...props}
-                onLoggedIn={setLoggedIn}
-                loggedIn={loggedIn}
-              />
+              <Register {...props} requestRegist={api.regUser} />
             )}
           />
           {/* <Route path='/' exact component={PageNotFound} /> */}

@@ -12,10 +12,7 @@ import {
   useSuccessToggle,
 } from '../contexts/StatusFetchContext';
 
-import api from '../utils/Api';
-
-function Register(props) {
-  const { history } = props;
+function Register({ history, requestRegist }) {
   const failureStatus = useFailure();
   const failureStatusToggle = useFailureToggle();
   const successStatus = useSuccess();
@@ -60,8 +57,7 @@ function Register(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    api
-      .regUser({ email, password })
+    requestRegist({ email, password })
       .then((data) => {
         history.push('/sign-in');
         successStatusToggle();

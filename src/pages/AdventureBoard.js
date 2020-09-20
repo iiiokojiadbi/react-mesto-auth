@@ -162,7 +162,11 @@ function AdventureBoard() {
             onClose={handleCloseAllPopups}
             onDelete={handleCardDelete}
           />
-          <InfoTooltip isOpen={successStatus} onClose={successStatusToggle} />
+          <InfoTooltip
+            isOpen={successStatus}
+            onClose={successStatusToggle}
+            type='login'
+          />
         </StatusRenderContext.Provider>
       </CurrentUserContext.Provider>
     </>

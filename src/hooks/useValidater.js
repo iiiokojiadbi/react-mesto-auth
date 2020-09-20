@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-export const useValidater = (initialValue, valid = false) => {
+const useValidater = (initialValue, valid = false) => {
   const [inputValue, setInputValue] = useState(initialValue);
   const [inputErrorText, setInputErrorText] = useState('');
   const [isInputValid, setIsInputValid] = useState(valid);
@@ -44,3 +44,5 @@ export const useValidater = (initialValue, valid = false) => {
     reset,
   ];
 };
+
+export default useValidater;

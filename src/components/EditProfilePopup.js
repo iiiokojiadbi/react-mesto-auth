@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm';
 import { InputForm, ErrorSpan, ButtonSubmitForm } from './ui';
 
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
-import { useValidater } from '../hooks/useValidater';
+import Validater from '../hooks/useValidater';
 
 function EditProfilePopup({ isOpen, onClose, onUpdaterUser }) {
   const currentUser = useContext(CurrentUserContext);
@@ -17,7 +17,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdaterUser }) {
     },
     checkName,
     resetName,
-  ] = useValidater(currentUser.name, true);
+  ] = Validater(currentUser.name, true);
   const [
     {
       inputValue: about,
@@ -27,7 +27,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdaterUser }) {
     },
     checkAbout,
     resetAbout,
-  ] = useValidater(currentUser.about, true);
+  ] = Validater(currentUser.about, true);
 
   useEffect(() => {
     setName(currentUser.name);

@@ -1,6 +1,8 @@
-import React, { useEffect, useCallback } from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import { Button } from './ui';
+import compose from '../utils/compose';
+import { withEscHandler } from './HOC';
 
 function PopupWithForm({
   name,
@@ -8,30 +10,13 @@ function PopupWithForm({
   isOpen = false,
   onClose,
   onSubmitForm,
+  onOverlayClick,
   children,
 }) {
   const popupClasses = classnames({
     popup: true,
     popup_disabled: !isOpen,
   });
-
-  const linkClose = useCallback(onClose);
-
-  useEffect(() => {
-    const handleEscListener = (evt) => {
-      if (evt.key === 'Escape') linkClose();
-    };
-
-    if (isOpen) document.addEventListener('keydown', handleEscListener);
-
-    return () => {
-      document.removeEventListener('keydown', handleEscListener);
-    };
-  }, [isOpen, linkClose]);
-
-  const handleOverlayClick = (evt) => {
-    if (evt.target.classList.contains('popup')) onClose();
-  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -42,7 +27,7 @@ function PopupWithForm({
     <section
       className={popupClasses}
       id={`popup${name}`}
-      onClick={handleOverlayClick}
+      onClick={onOverlayClick}
     >
       <div className='popup__container'>
         <Button
@@ -67,4 +52,4 @@ function PopupWithForm({
   );
 }
 
-export default PopupWithForm;
+export default compose(withEscHandler('popup'))(PopupWithForm);

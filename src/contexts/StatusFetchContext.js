@@ -5,19 +5,19 @@ const SuccessContext = React.createContext();
 const FailureToggleContext = React.createContext();
 const SuccessToggleContext = React.createContext();
 
-export const useFailure = () => {
+export const Failure = () => {
   return useContext(FailureContext);
 };
 
-export const useSuccess = () => {
+export const Success = () => {
   return useContext(SuccessContext);
 };
 
-export const useFailureToggle = () => {
+export const FailureToggle = () => {
   return useContext(FailureToggleContext);
 };
 
-export const useSuccessToggle = () => {
+export const SuccessToggle = () => {
   return useContext(SuccessToggleContext);
 };
 

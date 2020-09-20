@@ -14,7 +14,7 @@ import api from '../utils/Api';
 function App(props) {
   const { history } = props;
   const { pathname } = props.location;
-  const [token, setToken] = useLocalStorage('jwt');
+  const [token, , removeToken] = useLocalStorage('jwt');
   const [loggedIn, setLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [fetched, setFetched] = useState(false);
@@ -48,7 +48,7 @@ function App(props) {
   }, [token, loggedIn, pathname, userInfo, fetched, history, checkToken]);
 
   const handleLogout = () => {
-    setToken('');
+    removeToken();
     setFetched(false);
     setTokenValid(false);
     setLoggedIn(false);
@@ -65,6 +65,12 @@ function App(props) {
             component={AdventureBoard}
             loggedIn={loggedIn}
             tokenValid={tokenValid}
+            requestGetInitialData={api.getInitialData}
+            requestUpdateUserInfo={api.updateUserInfo}
+            requestUpdateUserAvatar={api.updateUserAvatar}
+            requestLikeCard={api.likeCard}
+            requestDeleteCard={api.deleteCard}
+            requestPostCard={api.postCard}
           />
           <Route
             path='/sign-in'
@@ -73,18 +79,15 @@ function App(props) {
                 {...props}
                 onLoggedIn={setLoggedIn}
                 loggedIn={loggedIn}
-                checkToken={checkToken}
+                requestСheckToken={checkToken}
+                requestLogin={api.loginUser}
               />
             )}
           />
           <Route
             path='/sign-up'
             render={(props) => (
-              <Register
-                {...props}
-                onLoggedIn={setLoggedIn}
-                loggedIn={loggedIn}
-              />
+              <Register {...props} requestRegist={api.regUser} />
             )}
           />
           {/* <Route path='/' exact component={PageNotFound} /> */}

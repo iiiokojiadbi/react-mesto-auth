@@ -7,8 +7,6 @@ import compose from '../utils/compose';
 import { AuthContainer } from '../components/containers';
 
 function Register({
-  history,
-  requestRegist,
   password,
   passwordValid,
   passwordErrorText,
@@ -19,22 +17,9 @@ function Register({
   successStatus,
   failureStatus,
   successStatusToggle,
-  failureStatusToggle,
   handleClose,
+  onSubmitClick,
 }) {
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    requestRegist({ email, password })
-      .then((data) => {
-        history.push('/sign-in');
-        successStatusToggle();
-      })
-      .catch((err) => {
-        console.log(err);
-        failureStatusToggle();
-      });
-  };
-
   return (
     <div className='auth'>
       <div className='auth__wrapper'>
@@ -44,7 +29,7 @@ function Register({
           action='#'
           className='form form_type_auth auth__form'
           noValidate
-          onSubmit={handleSubmit}
+          onSubmit={onSubmitClick}
         >
           <label className='form__field form__field_auth'>
             <InputForm

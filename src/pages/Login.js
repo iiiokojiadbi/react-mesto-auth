@@ -2,16 +2,12 @@ import React from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
 
 import { InputForm, ButtonSubmitForm, ErrorSpan } from './../components/ui';
-import useLocalStorage from './../hooks/useLocalStorage';
 import InfoTooltip from './../components/InfoTooltip';
 import { AuthContainer } from '../components/containers';
 import compose from '../utils/compose';
 
 function Login({
   loggedIn,
-  onLoggedIn,
-  requestСheckToken,
-  requestLogin,
   password,
   passwordValid,
   passwordErrorText,
@@ -22,27 +18,9 @@ function Login({
   successStatus,
   failureStatus,
   successStatusToggle,
-  failureStatusToggle,
   handleClose,
+  onSubmitClick,
 }) {
-  const [, setJwt] = useLocalStorage('jwt');
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    requestLogin({ email, password })
-      .then(({ token }) => {
-        setJwt(token);
-        onLoggedIn(true);
-        successStatusToggle();
-        return token;
-      })
-      .then(requestСheckToken)
-      .catch((err) => {
-        console.log(err);
-        failureStatusToggle();
-      });
-  };
-
   if (loggedIn) {
     return <Redirect to='/' />;
   }
@@ -56,7 +34,7 @@ function Login({
           action='#'
           className='form form_type_auth auth__form'
           noValidate
-          onSubmit={handleSubmit}
+          onSubmit={onSubmitClick}
         >
           <label className='form__field form__field_auth'>
             <InputForm

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { AdventureBoard, Register, Login } from './../pages';
 import Header from './Header';
@@ -14,44 +14,72 @@ import api from '../utils/Api';
 function App(props) {
   const { history } = props;
   const { pathname } = props.location;
-  const [token, , removeToken] = useLocalStorage('jwt');
+  const [token, setToken, removeToken] = useLocalStorage('jwt');
   const [loggedIn, setLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [fetched, setFetched] = useState(false);
   const [tokenValid, setTokenValid] = useState(false);
 
-  const checkToken = useCallback(
-    (tokenToCheck) => {
-      if (!tokenToCheck) {
-        tokenToCheck = token;
-      }
+  useEffect(() => {
+    let skipCheckTokenAfterDestroy = false;
 
+    if (token && !fetched) {
       api
-        .checkUser(`Bearer ${tokenToCheck}`)
+        .checkUser(`Bearer ${token}`)
         .then(({ data }) => {
-          setLoggedIn(true);
-          setFetched(true);
-          setTokenValid(true);
-          setUserInfo(data);
+          if (skipCheckTokenAfterDestroy) {
+            setLoggedIn(true);
+            setFetched(true);
+            setTokenValid(true);
+            setUserInfo(data);
+          }
         })
         .catch((err) => {
-          console.log('Ошибка', err);
+          if (skipCheckTokenAfterDestroy) {
+            console.log(err);
+          }
         });
-    },
-    [token]
-  );
-
-  useEffect(() => {
-    if (token && !fetched) {
-      checkToken();
     }
-  }, [token, loggedIn, pathname, userInfo, fetched, history, checkToken]);
+
+    return () => {
+      skipCheckTokenAfterDestroy = true;
+    };
+  }, [token, loggedIn, pathname, userInfo, fetched, history]);
 
   const handleLogout = () => {
-    removeToken();
     setFetched(false);
     setTokenValid(false);
     setLoggedIn(false);
+    removeToken();
+    history.push('/sign-in');
+  };
+
+  const handleLogin = ({ email, password, success, failure }) => {
+    api
+      .loginUser({ email, password })
+      .then(({ token }) => {
+        setToken(token);
+        setLoggedIn(true);
+        success();
+        return token;
+      })
+      .catch((err) => {
+        console.log(err);
+        failure();
+      });
+  };
+
+  const handleRegister = ({ email, password, success, failure }) => {
+    api
+      .regUser({ email, password })
+      .then(() => {
+        history.push('/sign-in');
+        success();
+      })
+      .catch((err) => {
+        console.log(err);
+        failure();
+      });
   };
 
   return (
@@ -75,19 +103,13 @@ function App(props) {
           <Route
             path='/sign-in'
             render={(props) => (
-              <Login
-                {...props}
-                onLoggedIn={setLoggedIn}
-                loggedIn={loggedIn}
-                requestСheckToken={checkToken}
-                requestLogin={api.loginUser}
-              />
+              <Login {...props} loggedIn={loggedIn} onAuth={handleLogin} />
             )}
           />
           <Route
             path='/sign-up'
             render={(props) => (
-              <Register {...props} requestRegist={api.regUser} />
+              <Register {...props} onAuth={handleRegister} />
             )}
           />
           {/* <Route path='/' exact component={PageNotFound} /> */}

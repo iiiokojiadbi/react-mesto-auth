@@ -56,6 +56,16 @@ const AuthContainer = (Component) => (props) => {
     failureStatusToggle();
   };
 
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    props.onAuth({
+      email,
+      password,
+      success: successStatusToggle,
+      failure: failureStatusToggle,
+    });
+  };
+
   return (
     <Component
       {...props}
@@ -69,8 +79,8 @@ const AuthContainer = (Component) => (props) => {
       successStatus={successStatus}
       failureStatus={failureStatus}
       successStatusToggle={successStatusToggle}
-      failureStatusToggle={failureStatusToggle}
       handleClose={handleClose}
+      onSubmitClick={handleSubmit}
     />
   );
 };

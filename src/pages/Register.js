@@ -1,60 +1,27 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useValidater } from '../hooks/useValidater';
 
 import { InputForm, ButtonSubmitForm, ErrorSpan } from './../components/ui';
 import InfoTooltip from './../components/InfoTooltip';
+import compose from '../utils/compose';
+import { AuthContainer } from '../components/containers';
 
-import {
-  useFailure,
-  useFailureToggle,
-  useSuccess,
-  useSuccessToggle,
-} from '../contexts/StatusFetchContext';
-
-function Register({ history, requestRegist }) {
-  const failureStatus = useFailure();
-  const failureStatusToggle = useFailureToggle();
-  const successStatus = useSuccess();
-  const successStatusToggle = useSuccessToggle();
-
-  const [
-    {
-      inputValue: email,
-      setInputValue: setEmail,
-      isInputValid: emailValid,
-      inputErrorText: emailErrorText,
-    },
-    checkEmail,
-  ] = useValidater('');
-  const [
-    {
-      inputValue: password,
-      setInputValue: setPassword,
-      isInputValid: passwordValid,
-      inputErrorText: passwordErrorText,
-    },
-    checkPassword,
-  ] = useValidater('');
-
-  const inputs = {
-    email: (value) => setEmail(value),
-    password: (value) => setPassword(value),
-  };
-
-  const checkers = {
-    email: (target) => checkEmail(target),
-    password: (target) => checkPassword(target),
-  };
-
-  const handleChangeInput = (evt) => {
-    const { value, name, validationMessage, validity } = evt.target;
-    const setInput = inputs[name];
-    const setChecker = checkers[name];
-    setInput(value);
-    setChecker({ validationMessage, validity });
-  };
-
+function Register({
+  history,
+  requestRegist,
+  password,
+  passwordValid,
+  passwordErrorText,
+  email,
+  emailValid,
+  emailErrorText,
+  handleChangeInput,
+  successStatus,
+  failureStatus,
+  successStatusToggle,
+  failureStatusToggle,
+  handleClose,
+}) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     requestRegist({ email, password })
@@ -66,12 +33,6 @@ function Register({ history, requestRegist }) {
         console.log(err);
         failureStatusToggle();
       });
-  };
-
-  const handleClose = () => {
-    setEmail('');
-    setPassword('');
-    failureStatusToggle();
   };
 
   return (
@@ -130,4 +91,4 @@ function Register({ history, requestRegist }) {
   );
 }
 
-export default Register;
+export default compose(AuthContainer)(Register);

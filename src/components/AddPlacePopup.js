@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useValidater } from '../hooks/useValidater';
+import Validater from '../hooks/useValidater';
 import PopupWithForm from './PopupWithForm';
 import { InputForm, ErrorSpan, ButtonSubmitForm } from './ui';
 
@@ -13,7 +13,7 @@ function AddPlacePopup({ isOpen, onClose, onPost }) {
     },
     checkName,
     resetName,
-  ] = useValidater('');
+  ] = Validater('');
   const [
     {
       inputValue: url,
@@ -23,7 +23,7 @@ function AddPlacePopup({ isOpen, onClose, onPost }) {
     },
     checkUrl,
     resetUrl,
-  ] = useValidater('');
+  ] = Validater('');
 
   useEffect(() => {
     return () => {

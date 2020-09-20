@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useValidater } from '../hooks/useValidater';
+import Validater from '../hooks/useValidater';
 import PopupWithForm from './PopupWithForm';
 import { ButtonSubmitForm, ErrorSpan } from './ui';
 
@@ -8,7 +8,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdaterUserAvatar }) {
     { inputValue, setInputValue, isInputValid, inputErrorText },
     doCheckValid,
     reset,
-  ] = useValidater('');
+  ] = Validater('');
 
   useEffect(() => {
     reset();

@@ -10,7 +10,7 @@ import { CurrentUserContext } from './../contexts/CurrentUserContext';
 import { StatusRenderContext } from './../contexts/StatusRenderContext';
 
 import InfoTooltip from '../components/InfoTooltip';
-import { useSuccess, useSuccessToggle } from '../contexts/StatusFetchContext';
+import { Success, SuccessToggle } from '../contexts/StatusFetchContext';
 
 function AdventureBoard({
   requestGetInitialData,
@@ -31,8 +31,8 @@ function AdventureBoard({
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
 
-  const successStatus = useSuccess();
-  const successStatusToggle = useSuccessToggle();
+  const successStatus = Success();
+  const successStatusToggle = SuccessToggle();
 
   useEffect(() => {
     requestGetInitialData()

@@ -1,6 +1,6 @@
 {
-  "name": "react-mesto-auth",
-  "homepage": "https://iiiokojiadbi.github.io/react-mesto-auth/",
+  "name": "i-mesto",
+  "homepage": "https://i-mesto.students.nomoreparties.co/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,9 +20,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "npm run build && scp -r ./build/* iiiokojiadbi@84.201.178.111:/home/iiiokojiadbi/express-mesto"
   },
   "eslintConfig": {
     "extends": "react-app"

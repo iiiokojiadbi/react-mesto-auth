@@ -30,10 +30,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify(body),
     })
-      .then(this._returnResponse)
-      .then((data) => {
-        this._id = data._id;
-      });
+      .then(this._returnResponse);
   };
 
   loginUser = (body) => {
@@ -61,11 +58,7 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     })
-      .then(this._returnResponse)
-      .then((response) => {
-        this.myId = response._id;
-        return response;
-      });
+      .then(this._returnResponse);
   }
 
   updateUserInfo = (body) => {

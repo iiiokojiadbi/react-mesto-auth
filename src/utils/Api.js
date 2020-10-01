@@ -1,9 +1,7 @@
 class Api {
-  constructor({ baseUrl, authUrl, authorizationId }) {
+  constructor({ baseUrl }) {
     this._baseUrl = baseUrl;
-    this._authUrl = authUrl;
     this._headers = {
-      authorization: authorizationId,
       'Content-Type': 'application/json',
     };
   }
@@ -27,7 +25,7 @@ class Api {
   };
 
   regUser = (body) => {
-    return fetch(`${this._authUrl}/signup`, {
+    return fetch(`${this._baseUrl}/signup`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify(body),
@@ -39,7 +37,7 @@ class Api {
   };
 
   loginUser = (body) => {
-    return fetch(`${this._authUrl}/signin`, {
+    return fetch(`${this._baseUrl}/signin`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify(body),
@@ -47,7 +45,7 @@ class Api {
   };
 
   checkUser = (body) => {
-    return fetch(`${this._authUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: { ...this._headers, authorization: body },
     }).then(this._returnResponse);
@@ -112,9 +110,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12',
-  authUrl: 'https://auth.nomoreparties.co',
-  authorizationId: '71b91625-ec4b-4170-b042-4d00aa6f06b7',
+  baseUrl: 'https://api.i-mesto.nomoreparties.co/',
 });
 
 export default api;

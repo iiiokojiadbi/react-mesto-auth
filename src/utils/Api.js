@@ -103,7 +103,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://api.i-mesto.nomoreparties.co',
+  baseUrl: 'https://api.i-mesto.students.nomoreparties.co',
 });
 
 export default api;

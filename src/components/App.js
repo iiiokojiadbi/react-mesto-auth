@@ -61,7 +61,6 @@ function App(props) {
         setToken(token);
         setLoggedIn(true);
         success();
-        return token;
       })
       .catch((err) => {
         console.log(err);
